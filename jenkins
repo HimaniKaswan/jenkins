@@ -1,0 +1,102 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo "Building....."
+            }
+            post{
+                always{
+                    mail to: "himanikaswan33413@gmail.com",
+                    subject: "Build status email",
+                    body: "Build log status: ${currentBuild.result}"
+                }
+            }
+        }
+        
+        stage('Unit and Integration Tests') {
+            steps {
+                echo "Unit and Integration testing.." 
+            } 
+            post{
+                always{
+                    mail to: "himanikaswan33413@gmail.com",
+                    subject: "Test status email",
+                    body: "testing status: ${currentBuild.result} "
+                }
+            }     
+        }
+        
+        
+        stage('Code Analysis') {
+            steps {
+                echo "analysing the code..."
+            }
+            post{
+                always{
+                    mail to: "himanikaswan33413@gmail.com",
+                    subject: "Code analysis status email",
+                    body: "code analysis status: ${currentBuild.result} "
+                }
+            }  
+        }
+        
+        stage('Security Scan') {
+            steps {
+                echo "security scanning..."
+            }
+            post{
+                always{
+                    mail to: "himanikaswan33413@gmail.com",
+                    subject: "Security scan status email",
+                    body: "Security scan status: ${currentBuild.result} "
+                }
+            }    
+            
+    }
+        
+        
+        stage('Deploy to Staging') {
+            steps {
+                echo "Deploy to Staging"
+            }
+            post{
+                always{
+                    mail to: "himanikaswan33413@gmail.com",
+                    subject: "Deploy to Staging status email",
+                    body: "Deploy to Staging status: ${currentBuild.result} "
+                }
+            }  
+        }
+        
+        stage('Integration Tests on Staging') {
+            steps {
+                echo "Integration tests on Staging..."
+            }
+            post{
+                always{
+                    mail to: "himanikaswan33413@gmail.com",
+                    subject: "Integration test status email",
+                    body: "Integration test on staging status: ${currentBuild.result} "
+                }
+            }  
+            
+    
+        }
+        
+        stage('Deploy to Production') {
+            steps {
+                echo " Deploy to Production "
+            }
+            post{
+                always{
+                    mail to: "himanikaswan33413@gmail.com",
+                    subject: "Deploy to production status email",
+                    body: "Deploy to production status: ${currentBuild.result} "
+                }
+            }  
+        }
+    }
+}
+
